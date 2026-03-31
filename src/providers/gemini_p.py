@@ -14,7 +14,7 @@ class GeminiProvider(BaseAIProvider):
 
         # 根據目標語言決定推薦策略
         if target_lang.lower() == "english":
-            goal = "推薦 15 首『跨語系』的英文歌曲，尋找與我喜愛的華語歌手風格相仿的西洋曲目。"
+            goal = "推薦 15 首『跨語系』的英文歌曲，尋找與我喜愛的華語歌手風格相仿的西洋曲目 推薦更偏向現代獨立民謠 (Indie Folk) 的英文歌手。"
             example = "如果我喜歡王菲，推薦 Cocteau Twins；如果我喜歡孫燕姿，推薦 90s Female Rock。"
         else:
             goal = "推薦 15 首『華語流行』歌曲，深入挖掘與我喜愛的歌手風格相近的其他華語歌手。"
