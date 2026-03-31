@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+.env
+client_secrets.json
+data/liked_songs.json
+config/settings.yaml

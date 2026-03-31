@@ -1,0 +1,8 @@
+google-api-python-client
+google-auth-oauthlib
+google-auth-httplib2
+pydantic
+pyyaml
+google-generativeai
+openai
+anthropic
