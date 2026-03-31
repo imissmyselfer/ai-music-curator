@@ -6,7 +6,7 @@
 
 > **「從王菲的空靈到孫燕姿的倔強，讓 AI 讀懂你的音樂靈魂。」**
 
-這是一個基於 AI 技術的華語流行音樂 (MandoPop) 推薦工具。它能深度分析你在 YouTube Music 中的「喜歡的歌曲」，並透過 Google Gemini 1.5 Pro 的強大語意理解能力，為你發掘靈魂相近的音樂，並自動在你的帳號中建立專屬播放清單。
+這是一個基於 AI 技術的華語流行音樂 (MandoPop) 推薦工具。它能深度分析你在 YouTube Music 中的「喜歡的歌曲」，並透過 Google Gemini 2.5 Pro 的強大語意理解能力，為你發掘靈魂相近的音樂，並自動在你的帳號中建立專屬播放清單。
 
 ## ✨ 核心亮點
 
@@ -18,7 +18,7 @@
 ## 🛠️ 技術棧
 
 - **語言**: Python 3.10+
-- **AI 推薦**: Google Gemini 1.5 Pro API
+- **AI 推薦**: Google Gemini 2.5 Pro API
 - **資料獲取**: YouTube Data API v3
 - **資料驗證**: Pydantic V2
 - **授權管理**: OAuth 2.0 (Google SDK)
