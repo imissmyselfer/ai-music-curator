@@ -35,37 +35,30 @@ def main():
     target_singer = config.get("target_singer", "")
     pure_mode = config.get("pure_artist_mode", False)
     
-    if target_singer:
-        mode_text = "純度 100%" if pure_mode else "風格相近"
-        print(f"🎤 正在為你準備『{target_singer}』專場推薦 ({mode_text} - {target_lang})...")
-        try:
+    try:
+        if target_singer:
+            mode_text = "純度 100%" if pure_mode else "風格相近"
+            print(f"🎤 正在為你準備『{target_singer}』專場推薦 ({mode_text} - {target_lang})...")
             output = provider.recommend_by_singer(target_singer, target_lang, pure_mode)
-        except Exception as e:
-            print(f"❌ 歌手專場推薦失敗: {e}")
-            return
-    else:
-        print(f"🤖 正在根據你的 {len(liked_songs)} 首收藏進行『{target_lang}』綜合推薦...")
-        try:
+        else:
+            print(f"🤖 正在根據你的 {len(liked_songs)} 首收藏進行『{target_lang}』綜合推薦...")
             output = provider.analyze_and_recommend(liked_songs, target_lang)
-        except Exception as e:
-            print(f"❌ 綜合推薦失敗: {e}")
-            return
-    
-    # 4. 展示與儲存結果
-    print(f"\n✨ AI 產出的歌單標題：{output.playlist_title}")
+        
+        # 4. 展示與儲存結果
+        print(f"\n✨ AI 產出的歌單標題：{output.playlist_title}")
         print("-" * 50)
         
         for i, rec in enumerate(output.recommendations, 1):
             print(f"{i}. {rec.song_name} - {rec.artist}")
             print(f"   💡 原因：{rec.reason}\n")
             
-        # 4. 存檔推薦結果
+        # 5. 存檔推薦結果
         with open("data/recommendations.json", "w", encoding="utf-8") as f:
             json.dump(output.model_dump(), f, ensure_ascii=False, indent=2)
         print(f"📂 推薦清單已存至: data/recommendations.json")
 
     except Exception as e:
-        print(f"❌ 發生錯誤: {e}")
+        print(f"❌ 執行過程中發生錯誤: {e}")
 
 if __name__ == "__main__":
     main()
