@@ -3,5 +3,5 @@ __pycache__/
 *.pyc
 .env
 client_secrets.json
-data/liked_songs.json
+data/*.json
 config/settings.yaml

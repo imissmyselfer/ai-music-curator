@@ -18,14 +18,13 @@ def main():
     print(f"✅ 已載入 {len(liked_songs)} 首喜歡的歌曲資料。")
 
     # 2. 初始化 AI 提供商
-    # 這裡我們展示如何根據 config 切換模型
     active_model = config.get("active_ai_model", "gemini")
+    target_lang = config.get("recommendation_language", "Mandarin")
     
     if active_model == "gemini":
-        # 從環境變數或 config 讀取 API Key
         api_key = os.getenv("GEMINI_API_KEY") or config.get("gemini_api_key")
         if not api_key:
-            print("❌ 錯誤: 找不到 GEMINI_API_KEY。請在 config/settings.yaml 或環境變數中設定。")
+            print("❌ 錯誤: 找不到 GEMINI_API_KEY。")
             return
         provider = GeminiProvider(api_key)
     else:
@@ -33,13 +32,10 @@ def main():
         return
 
     # 3. 執行分析與推薦
-    print(f"🤖 正在使用 {active_model.upper()} 進行音樂品味分析與推薦...")
-    
-    # 你可以自定義情境描述
-    context = "我想要一組非常有『氛圍感』的歌單，適合在深夜一個人的時候聽。"
+    print(f"🤖 正在使用 {active_model.upper()} 進行『{target_lang}』音樂分析與推薦...")
     
     try:
-        output = provider.analyze_and_recommend(liked_songs, context)
+        output = provider.analyze_and_recommend(liked_songs, target_lang)
         
         print(f"\n✨ AI 產出的歌單標題：{output.playlist_title}")
         print("-" * 50)
