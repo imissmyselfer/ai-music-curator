@@ -32,12 +32,27 @@ def main():
         return
 
     # 3. 執行分析與推薦
-    print(f"🤖 正在使用 {active_model.upper()} 進行『{target_lang}』音樂分析與推薦...")
+    target_singer = config.get("target_singer", "")
+    pure_mode = config.get("pure_artist_mode", False)
     
-    try:
-        output = provider.analyze_and_recommend(liked_songs, target_lang)
-        
-        print(f"\n✨ AI 產出的歌單標題：{output.playlist_title}")
+    if target_singer:
+        mode_text = "純度 100%" if pure_mode else "風格相近"
+        print(f"🎤 正在為你準備『{target_singer}』專場推薦 ({mode_text} - {target_lang})...")
+        try:
+            output = provider.recommend_by_singer(target_singer, target_lang, pure_mode)
+        except Exception as e:
+            print(f"❌ 歌手專場推薦失敗: {e}")
+            return
+    else:
+        print(f"🤖 正在根據你的 {len(liked_songs)} 首收藏進行『{target_lang}』綜合推薦...")
+        try:
+            output = provider.analyze_and_recommend(liked_songs, target_lang)
+        except Exception as e:
+            print(f"❌ 綜合推薦失敗: {e}")
+            return
+    
+    # 4. 展示與儲存結果
+    print(f"\n✨ AI 產出的歌單標題：{output.playlist_title}")
         print("-" * 50)
         
         for i, rec in enumerate(output.recommendations, 1):
