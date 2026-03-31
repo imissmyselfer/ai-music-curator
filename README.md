@@ -1,7 +1,7 @@
 # 🎵 AI-Music-Curator 
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
-[![AI Model](https://img.shields.io/badge/AI_Model-Gemini_1.5_Pro-purple.svg)](https://aistudio.google.com/)
+[![AI Model](https://img.shields.io/badge/AI_Model-Gemini_2.5_Pro-purple.svg)](https://aistudio.google.com/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 > **「從王菲的空靈到孫燕姿的倔強，讓 AI 讀懂你的音樂靈魂。」**
