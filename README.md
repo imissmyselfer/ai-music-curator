@@ -1,4 +1,4 @@
-# 🎵 AI-Music-Curator (AI 華語音樂館長)
+# 🎵 AI-Music-Curator 
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
 [![AI Model](https://img.shields.io/badge/AI_Model-Gemini_1.5_Pro-purple.svg)](https://aistudio.google.com/)
