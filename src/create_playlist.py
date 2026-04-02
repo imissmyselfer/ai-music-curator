@@ -3,16 +3,16 @@ import time
 from youtube_auth import get_authenticated_service
 
 def search_song(youtube, artist, song_name):
-    """在 YouTube 上搜尋歌曲並回傳第一個 Video ID"""
+    """Search for a song on YouTube and return the first Video ID"""
     query = f"{artist} {song_name}"
-    print(f"🔍 正在搜尋: {query}...")
+    print(f"🔍 Searching: {query}...")
     
     request = youtube.search().list(
         q=query,
         part="snippet",
         maxResults=1,
         type="video",
-        videoCategoryId="10"  # Music 分類
+        videoCategoryId="10"  # Music category
     )
     response = request.execute()
     
@@ -21,19 +21,19 @@ def search_song(youtube, artist, song_name):
         return items[0]["id"]["videoId"]
     return None
 
-def create_playlist(youtube, title, description="AI 推薦：深夜呢喃"):
-    """建立一個新的 YouTube 播放清單"""
-    print(f"✨ 正在建立播放清單: {title}...")
+def create_playlist(youtube, title, description="AI Recommendation: Midnight Whispers"):
+    """Create a new YouTube playlist"""
+    print(f"✨ Creating playlist: {title}...")
     request = youtube.playlists().insert(
         part="snippet,status",
         body={
             "snippet": {
                 "title": title,
                 "description": description,
-                "defaultLanguage": "zh-TW"
+                "defaultLanguage": "en"
             },
             "status": {
-                "privacyStatus": "private"  # 預設為私有，你可以手動公開
+                "privacyStatus": "private"  # Default to private, you can manually make it public
             }
         }
     )
@@ -41,7 +41,7 @@ def create_playlist(youtube, title, description="AI 推薦：深夜呢喃"):
     return response["id"]
 
 def add_song_to_playlist(youtube, playlist_id, video_id):
-    """將影片加入播放清單"""
+    """Add a video to the playlist"""
     request = youtube.playlistItems().insert(
         part="snippet",
         body={
@@ -57,42 +57,42 @@ def add_song_to_playlist(youtube, playlist_id, video_id):
     return request.execute()
 
 def main():
-    # 1. 載入 AI 推薦資料
+    # 1. Load AI recommendation data
     with open("data/recommendations.json", "r", encoding="utf-8") as f:
         data = json.load(f)
     
-    playlist_title = data.get("playlist_title", "AI 推薦歌單")
+    playlist_title = data.get("playlist_title", "AI Recommended Playlist")
     recommendations = data.get("recommendations", [])
 
     if not recommendations:
-        print("❌ 錯誤: 找不到推薦歌曲。請先執行 src/main.py")
+        print("❌ Error: No recommended songs found. Please run src/main.py first.")
         return
 
-    # 2. 認證 YouTube API
+    # 2. Authenticate YouTube API
     youtube = get_authenticated_service()
     if not youtube:
         return
 
-    # 3. 建立播放清單
+    # 3. Create playlist
     try:
         playlist_id = create_playlist(youtube, playlist_title)
-        print(f"✅ 播放清單已建立，ID: {playlist_id}")
+        print(f"✅ Playlist created, ID: {playlist_id}")
 
-        # 4. 搜尋並加入歌曲
+        # 4. Search and add songs
         for rec in recommendations:
             video_id = search_song(youtube, rec["artist"], rec["song_name"])
             if video_id:
                 add_song_to_playlist(youtube, playlist_id, video_id)
-                print(f"   🎵 已加入: {rec['song_name']} - {rec['artist']}")
-                # 稍微延遲避免觸發 API 頻率限制
+                print(f"   🎵 Added: {rec['song_name']} - {rec['artist']}")
+                # Slight delay to avoid triggering API rate limits
                 time.sleep(1)
             else:
-                print(f"   ⚠️ 找不到歌曲: {rec['song_name']} - {rec['artist']}")
+                print(f"   ⚠️ Song not found: {rec['song_name']} - {rec['artist']}")
 
-        print(f"\n🎉 全部完成！你的 AI 專屬歌單『{playlist_title}』已經在 YouTube Music 上準備好了！")
+        print(f"\n🎉 All done! Your AI exclusive playlist '{playlist_title}' is ready on YouTube Music!")
 
     except Exception as e:
-        print(f"❌ 執行過程中發生錯誤: {e}")
+        print(f"❌ Error occurred during execution: {e}")
 
 if __name__ == "__main__":
     main()

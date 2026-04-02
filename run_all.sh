@@ -1,17 +1,17 @@
 #!/bin/bash
 
-# 進入虛擬環境
+# Enter virtual environment
 if [ -d "venv" ]; then
     source venv/bin/activate
 fi
 
-echo "🎵 步驟 1: 抓取你的最新播放清單資料..."
+echo "🎵 Step 1: Fetching your latest liked songs data..."
 python src/fetch_liked_songs.py
 
-echo -e "\n🤖 步驟 2: AI 分析品味並產出推薦..."
+echo -e "\n🤖 Step 2: AI analyzing tastes and generating recommendations..."
 python src/main.py
 
-echo -e "\n✨ 步驟 3: 在 YouTube 上自動建立歌單並加入歌曲..."
+echo -e "\n✨ Step 3: Automatically creating playlist and adding songs on YouTube..."
 python src/create_playlist.py
 
-echo -e "\n🎉 全部完成！去 YouTube Music 聽聽看 AI 為你準備的驚喜吧！"
+echo -e "\n🎉 All done! Go to YouTube Music and check out the surprise AI has prepared for you!"

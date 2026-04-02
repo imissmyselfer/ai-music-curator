@@ -2,7 +2,7 @@ import os
 from youtube_auth import get_authenticated_service
 
 def list_my_playlists(youtube):
-    print("📋 正在獲取你的所有播放清單...")
+    print("📋 Fetching all your playlists...")
     request = youtube.playlists().list(
         part="snippet,contentDetails",
         mine=True,
@@ -13,8 +13,8 @@ def list_my_playlists(youtube):
     print(f"{'Playlist Title':<30} | {'Songs':<6} | {'Playlist ID'}")
     print("-" * 70)
     
-    # 手動加上 Liked Videos (因為 mine=True 不會列出它)
-    print(f"{'Liked Videos (點讚紀錄)':<30} | {'?':<6} | {'LL'}")
+    # Manually add Liked Videos (since mine=True won't list it)
+    print(f"{'Liked Videos (Likes)':<30} | {'?':<6} | {'LL'}")
 
     for item in response.get("items", []):
         title = item["snippet"]["title"]

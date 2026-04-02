@@ -14,11 +14,11 @@ class RecommendationOutput(BaseModel):
 class BaseAIProvider(ABC):
     @abstractmethod
     def analyze_and_recommend(self, user_liked_songs: List[Dict], target_lang: str) -> RecommendationOutput:
-        """根據用戶喜歡的歌曲列表，回傳結構化的推薦結果"""
+        """Based on the user's liked songs, return structured recommendation results"""
         pass
 
     @abstractmethod
     def recommend_by_singer(self, singer_name: str, target_lang: str, pure_mode: bool = False) -> RecommendationOutput:
-        """針對特定歌手的風格進行專場推薦"""
+        """Perform special recommendation for a specific artist's style"""
         pass
 
